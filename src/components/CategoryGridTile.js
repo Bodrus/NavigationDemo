@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Pressable, Platform } from 'react-native';
-import { CATEGORIES } from '../../data/dummy-data';
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   item: {
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const renderCategoryItem = ({ item }) => {
+export const CategoryGridTile = ({ title, color, handlePress }) => {
   return (
     <View style={[styles.item]}>
       <Pressable
@@ -40,21 +39,13 @@ const renderCategoryItem = ({ item }) => {
         style={({pressed}) => [
           styles.button,
           pressed && {opacity: 0.75}
-        ]}>
-        <View style={[styles.innerItem, { backgroundColor: item.color }]}>
-          <Text style={styles.textItem}>{item.title}</Text>
+        ]}
+        onPress={handlePress}
+      >
+        <View style={[styles.innerItem, { backgroundColor: color }]}>
+          <Text style={styles.textItem}>{title}</Text>
         </View>
       </Pressable>
     </View>
   )
 }
-export const CategoryGridTile = () => {
-  return (
-    <FlatList
-      data={CATEGORIES}
-      renderItem={renderCategoryItem}
-      keyExtractor={(item) => item.id}
-      numColumns={2}
-    />
-  );
-};
